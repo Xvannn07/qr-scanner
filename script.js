@@ -12,26 +12,44 @@ function requestCamera() {
       video.play();
       loader.innerText = "Arahkan kamera ke QR Code...";
       // Hapus tombol jika sudah ada
-      const existingBtn = document.getElementById('openCameraBtn');
-      if (existingBtn) existingBtn.remove();
+      removeButtons();
       requestAnimationFrame(tick);
     })
     .catch(err => {
       console.error("Error mengakses kamera:", err);
       if (err.name === "NotAllowedError") {
         loader.innerText = "Akses kamera ditolak. Silakan aktifkan akses kamera di browser Anda.";
-        // Jika tombol belum ada, buat tombol untuk membuka kamera
-        if (!document.getElementById('openCameraBtn')) {
-          const openCameraBtn = document.createElement('button');
-          openCameraBtn.id = "openCameraBtn";
-          openCameraBtn.innerText = "Buka Kamera";
-          openCameraBtn.onclick = requestCamera;
-          loader.appendChild(openCameraBtn);
-        }
+        // Tampilkan tombol untuk membuka dengan Chrome
+        showOpenWithChromeButton();
       } else {
         loader.innerText = "Tidak dapat mengakses kamera.";
       }
     });
+}
+
+// Fungsi untuk menampilkan tombol "Buka dengan Chrome"
+function showOpenWithChromeButton() {
+  // Hapus tombol yang ada sebelumnya
+  removeButtons();
+
+  // Buat tombol
+  const openWithChromeBtn = document.createElement('a');
+  openWithChromeBtn.href = window.location.href;
+  openWithChromeBtn.innerText = "Buka dengan Chrome";
+  openWithChromeBtn.className = "button";
+  openWithChromeBtn.onclick = function(event) {
+    event.preventDefault();
+    window.location.href = 'googlechrome://' + window.location.href.replace(/^https?:\/\//, '');
+  };
+
+  // Tambahkan tombol ke loader
+  loader.appendChild(openWithChromeBtn);
+}
+
+// Fungsi untuk menghapus tombol yang ada
+function removeButtons() {
+  const existingButtons = document.querySelectorAll('.button');
+  existingButtons.forEach(btn => btn.remove());
 }
 
 // Panggil fungsi untuk pertama kali
