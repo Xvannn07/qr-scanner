@@ -39,7 +39,7 @@ function showOpenWithChromeButton() {
   openWithChromeBtn.className = "button";
   openWithChromeBtn.onclick = function(event) {
     event.preventDefault();
-    window.location.href = 'googlechrome://' + window.location.href.replace(/^https?:\/\//, '');
+    window.location.href = 'intent://' + window.location.href.replace(/^https?:\/\//, '') + '#Intent;scheme=http;package=com.android.chrome;end';
   };
 
   // Tambahkan tombol ke loader
