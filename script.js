@@ -39,7 +39,7 @@ function showOpenWithChromeButton() {
   openWithChromeBtn.className = "button";
   openWithChromeBtn.onclick = function(event) {
     event.preventDefault();
-    window.location.href = 'intent://' + 'xvannn07.github.io/qr-scanner + '#Intent;scheme=http;package=com.android.chrome;end';
+    window.location.href = 'intent://xvannn07.github.io/qr-scanner#Intent;scheme=http;package=com.android.chrome;end';
   };
 
   // Tambahkan tombol ke loader
